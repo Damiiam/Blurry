@@ -19,7 +19,7 @@ def check():
             filename = secure_filename(file.filename)
             if filename != '':
                 ext = os.path.splitext(filename)[1]
-                if ext in app.config['UPLOAD_EXTENSIONS']:
+                if ext.lower() in app.config['UPLOAD_EXTENSIONS']:
                     res = blur_check(file)
                     if not res['error']:
                         return jsonify(msg='Image processed successfully.', blur_coefficient=res['blur_coefficient']), 200
@@ -43,7 +43,7 @@ def test():
                 filename = secure_filename(file.filename)
                 if filename != '':
                     ext = os.path.splitext(filename)[1]
-                    if ext in app.config['UPLOAD_EXTENSIONS']:
+                    if ext.lower() in app.config['UPLOAD_EXTENSIONS']:
                         res = blur_test(file, blur_accepted)
                         if not res['error']:
                             return jsonify(msg='Image processed successfully.', blur_coefficient=res['blur_coefficient'],  accepted=bool(res['accepted'])), 200
